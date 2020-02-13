@@ -4,7 +4,7 @@ const {
   } = require('kuzzle-sdk');
   
   const kuzzle = new Kuzzle(new WebSocket('kuzzle'));
-var x = document.getElementById("demo");
+
 var lat = document.getElementById("lat");
 var long = document.getElementById("long");
 

@@ -5,6 +5,9 @@ var mongoose = require('mongoose');
 
 mongoose.connect("mongodb+srv://test:test1234@todo-qqfes.mongodb.net/test?retryWrites=true&w=majority", { useUnifiedTopology: true, useNewUrlParser: true });
 
+
+var a=[];
+
 var locations = new mongoose.Schema({
     lat: String,
     lng: String,
@@ -27,12 +30,18 @@ app.get('/login',function(req,res){
     res.render('login');
 });
 
-app.post('/login',urlencodedParser,async function(req,res){
-    console.log(req.body);
-    var newloc =await  loc(req.body).save();
-    
-   // res.render('sample');
+app.get('/show',function(req,res){
+    console.log(a);
+    res.render('sample',{d:a});
 });
+
+
+app.post('/login',urlencodedParser,async function(req,res){
+    a.push(req.body);
+    var newloc =await loc(req.body).save();
+    res.send(undefined);
+});
+
 
 app.set('view engine','ejs');
 var PORT = process.env.PORT || 3000;

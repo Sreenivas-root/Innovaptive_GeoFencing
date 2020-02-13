@@ -28,15 +28,5 @@ $(document).ready(function(){
         });
         }
     };
-    var myVar,myVar2;
-    $('#start').on('click',function(){
-         myVar = setInterval(location,5000);
-         //myVar2=setInterval('location.reload()',5000);
-         console.log('e');
-    });
-    $('#stop').on('click',function(){
-        console.log("d");
-        clearInterval(myVar);
-        //clearInterval(myVar2);
-    });
+    setTimeout(location,10000);
 });
