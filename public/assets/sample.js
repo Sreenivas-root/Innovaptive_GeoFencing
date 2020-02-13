@@ -29,4 +29,8 @@ $(document).ready(function(){
         }
     };
     setTimeout(location,10000);
+    $('#stop').on('click',function(){
+        clearTimeout();
+        window.location.href = '/';
+    });
 });
