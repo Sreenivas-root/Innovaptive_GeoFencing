@@ -21,7 +21,7 @@ $(document).ready(function(){
     };
     var myVar;
     $('#start').on('click',function(){
-         myVar = setInterval(location,2000);
+         myVar = setInterval(location,5000);
          console.log('e');
     });
     $('#stop').on('click',function(){

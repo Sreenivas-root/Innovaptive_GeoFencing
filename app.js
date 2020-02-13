@@ -27,14 +27,16 @@ app.get('/login',function(req,res){
     res.render('login');
 });
 
-app.post('/login',urlencodedParser,function(req,res){
-    var newloc = loc(req.body).save();
+app.post('/login',urlencodedParser,async function(req,res){
     console.log(req.body);
-    res.send(undefined);
+    var newloc =await  loc(req.body).save();
+    
+   // res.render('sample');
 });
 
 app.set('view engine','ejs');
-app.listen(3000);
+var PORT = process.env.PORT || 3000;
+app.listen(PORT);
 
 
 console.log("you are listening to port 3000");
