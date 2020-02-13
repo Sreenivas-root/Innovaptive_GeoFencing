@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 mongoose.connect("mongodb+srv://test:test1234@todo-qqfes.mongodb.net/test?retryWrites=true&w=majority", { useUnifiedTopology: true, useNewUrlParser: true });
 
 
-var a=[];
+var a;
 
 var locations = new mongoose.Schema({
     lat: String,
@@ -27,6 +27,7 @@ app.get('/',function(req,res){
 
 
 app.get('/login',function(req,res){
+    a=[];
     res.render('login');
 });
 
