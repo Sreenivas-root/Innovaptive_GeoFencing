@@ -10,7 +10,7 @@ var client  = redis.createClient();
 
 app.use(session({
     secret: 'shhhhh',
-    store: new redisStore({ host: 'localhost', port: 6379, client: client,ttl : 260}),
+    store: new redisStore({ host: 'localhost', port: 7889, client: client,ttl : 260}),
     saveUninitialized: false,
     resave: false
   }));
