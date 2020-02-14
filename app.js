@@ -117,7 +117,7 @@ app.post('/signin',async function(req,res){
   var w= await worker.find(req.body);
   if(w){
        req.session.key=req.body.worker_mail;
-        
+      // req.session.flag=false;
       res.render('login');
   }else{
       console.log("invalid");
