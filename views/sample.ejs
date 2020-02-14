@@ -53,8 +53,12 @@
     console.log(Math.sqrt(dx * dx + dy * dy));
     return Math.sqrt(dx * dx + dy * dy) <= km;
     }
-    console.log(arePointsNear({lat:17.456319699999998,lng:78.3728344},a[a.length-1],0.008));
-    }
+
+    // if(!arePointsNear({lat:17.456319699999998,lng:78.3728344},a[a.length-1],0.008))
+    // {
+       window.location.href='/option';
+    // }
+  }
   </script>
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUA7HInId-aYWjxMz_U1MjeyCTPDlV_5I&callback=initMap">

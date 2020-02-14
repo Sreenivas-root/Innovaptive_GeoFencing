@@ -158,6 +158,16 @@ app.get('/show',function(req,res){
 });
 
 
+app.get('/option',function(req,res){
+    res.render('options');
+});
+
+app.post('/option',urlencodedParser,function(req,res){
+    console.log(req.body);
+    res.send(undefined);
+});
+
+
 app.post('/login',urlencodedParser,async function(req,res){
     if(a===undefined){
         a=[];
