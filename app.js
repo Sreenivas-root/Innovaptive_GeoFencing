@@ -7,7 +7,7 @@ var redis = require('redis');
 var redisStore = require('connect-redis')(session);
 var client  = redis.createClient();
 
-
+var flag=true; //inital assumption
 app.use(session({
     secret: 'shhhhh',
     store: new redisStore({ host: 'localhost', port: 7889, client: client,ttl : 260}),
@@ -92,6 +92,10 @@ var a;
   time:{
       type:[Date],
       default:[]
+  },
+  options:{
+    type:[String],
+    default:[]
   }
   });
 
@@ -124,8 +128,10 @@ app.post('/signin',async function(req,res){
   }
 });
 
-
-
+app.get('/plot',function(req,res){
+  work,find({})
+  res.render('plot');
+});
 
 app.get('/signup',function(req,res){
     res.render('signup');
@@ -154,7 +160,7 @@ app.get('/show',function(req,res){
         a=[];
     }
     console.log(a);
-    res.render('sample',{d:a});
+    res.render('sample',{d:a,f:flag});
 });
 
 
@@ -162,11 +168,26 @@ app.get('/option',function(req,res){
     res.render('options');
 });
 
-app.post('/option',urlencodedParser,function(req,res){
-    console.log(req.body);
-    res.send(undefined);
+app.get('/time',async function(req,res){
+  
+  flag=~flag;
+  var d=new Date();
+  var w=await work.findOne({worker_mail:req.session.key,work_status:"working"});
+
+  w.time.push(d);
+ await work(w).save();
+    res.send('sample',{d:a,f:flag});
 });
 
+app.post('/option',urlencodedParser,async function(req,res){
+  flag=~flag;
+  var d=new Date();
+  var w=await work.findOne({worker_mail:req.session.key,work_status:"working"});
+  w.options.push(req.body.options);
+  w.time.push(d);
+ await work(w).save();
+    res.send(undefined);
+});
 
 app.post('/login',urlencodedParser,async function(req,res){
     if(a===undefined){
@@ -178,7 +199,7 @@ app.post('/login',urlencodedParser,async function(req,res){
    var w=await work.findOne({worker_mail:req.session.key,work_status:"working"});
     w.worker_location.push(req.body);
     work_status="working"
-    w.time.push(d);
+  //  w.time.push(d);
    await work(w).save();
     res.send(undefined);
 });

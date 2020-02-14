@@ -31,7 +31,7 @@
         fillOpacity: 0.35,
         map: map,
         center: {lat:17.456319699999998,lng:78.3728344},
-        radius: 10
+        radius: 50
       });
       var a = [];
             <% for (var i = 0; i < d.length; i++) { %>
@@ -45,20 +45,38 @@
           strokeWeight: 2
         });
         flightPath.setMap(map);
-        
+
     function arePointsNear(checkPoint, centerPoint, km) { 
     var ky = 40000 / 360;
     var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
     var dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
     var dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
-    console.log(Math.sqrt(dx * dx + dy * dy));
+   // console.log(Math.sqrt(dx * dx + dy * dy));
     return Math.sqrt(dx * dx + dy * dy) <= km;
     }
 
-    // if(!arePointsNear({lat:17.456319699999998,lng:78.3728344},a[a.length-1],0.008))
-    // {
-       window.location.href='/option';
-    // }
+    var res=arePointsNear({lat:17.456319699999998,lng:78.3728344},a[a.length-1],0);
+      var x= <%= f %>; 
+
+   console.log(res);
+
+  //  if(x==-1){
+  //    x=res;
+  //  }
+
+   if(res!=x){
+
+      if(res==false) {
+
+        window.location.href='/option';
+
+      }else{
+
+        window.location.href='/time';
+
+      }
+
+    }
   }
   </script>
   <script async defer
