@@ -41,14 +41,6 @@ var a;
     },
     worker_mail: {
       type: String
-    },
-    worker_location:{
-        type:[Object],
-        default:[]
-    },
-    time:{
-        type:[Date],
-        default:[]
     }
   });
 
@@ -79,7 +71,7 @@ var a;
   });
 
   const WorkSchema = new mongoose.Schema({
-    worker_id: {
+    worker_mail: {
       type: String,
       default: "0",
       required: true
@@ -92,13 +84,22 @@ var a;
     work_status: {
       type: String,
       default: "None"
-    }
+    },
+    worker_location:{
+      type:[Object],
+      default:[]
+  },
+  time:{
+      type:[Date],
+      default:[]
+  }
   });
 
   var worker=mongoose.model('WorkerSchema',WorkerSchema);
   var machine=mongoose.model('MachineSchema',MachineSchema);
   var work=mongoose.model('WorkSchema',WorkSchema);
   
+  //work({worker_mail:"rajesh@gmail.com",machine_id:"2",work_status:"fault"}).save();
 
 var urlencodedParser = bodyparser.urlencoded({ extended: false });
 
@@ -164,10 +165,11 @@ app.post('/login',urlencodedParser,async function(req,res){
     a.push(req.body);
     var d = new Date();
    //  worker.updateOne({"worker_mail":req.session.key},{$push:{"worker_location":req.body}});
-   var w=await worker.findOne({worker_mail:req.session.key});
+   var w=await work.findOne({worker_mail:req.session.key,work_status:"working"});
     w.worker_location.push(req.body);
+    work_status="working"
     w.time.push(d);
-   await worker(w).save();
+   await work(w).save();
     res.send(undefined);
 });
 

@@ -23,6 +23,16 @@
       var map = new google.maps.Map(
         document.getElementById('map'),
         { center: new google.maps.LatLng(17.456319699999998,78.3728344), zoom: 16 });
+        var cityCircle = new google.maps.Circle({
+        strokeColor: '#FFFF00',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FFFF00',
+        fillOpacity: 0.35,
+        map: map,
+        center: {lat:17.456319699999998,lng:78.3728344},
+        radius: 10
+      });
       var a = [];
             <% for (var i = 0; i < d.length; i++) { %>
         a.push({ lat:<%= d[i].lat %>, lng:<%= d[i].lng %>});
@@ -34,7 +44,16 @@
           strokeOpacity: 1.0,
           strokeWeight: 2
         });
-      flightPath.setMap(map);
+        flightPath.setMap(map);
+    function arePointsNear(checkPoint, centerPoint, km) { 
+    var ky = 40000 / 360;
+    var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
+    var dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
+    var dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
+    console.log(Math.sqrt(dx * dx + dy * dy));
+    return Math.sqrt(dx * dx + dy * dy) <= km;
+    }
+    console.log(arePointsNear({lat:17.456319699999998,lng:78.3728344},a[a.length-1],0.008));
     }
   </script>
   <script async defer
