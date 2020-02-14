@@ -3,7 +3,7 @@ $(document).ready(function(){
   
         var options = $('#options').val();
         var option = {options: options};
-  
+        console.log(option);
         $.ajax({
           type: 'POST',
           url: '/option',

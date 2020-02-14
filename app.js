@@ -129,8 +129,25 @@ app.post('/signin',async function(req,res){
 });
 
 app.get('/plot',function(req,res){
-  work,find({})
-  res.render('plot');
+  work.find({},function(err,data){
+    var r = {wrenchtime:0,authorizedbreaks:0,personaltime:0,toolsmaterials:0,receivinginstr:0};
+    for(var i=0;i<data.length;i++){
+      for(var j=0;j<data[i].time.length-1;j=j+2){
+        var g = data[i].options[j];
+        const diffTime = Math.abs(data[i].time[j+1] - data[i].time[j]);
+        console.log(diffTime);
+        // console.log(data[i].time[j]);
+        if(g!=undefined)
+        r[g]+=diffTime;
+      }
+    }
+    var b = [];
+    b.push(['options','timespent']);
+    for(var key in r) { 
+        b.push([ key ,r[key]]);
+    }
+    res.render('plot',{d:b});
+  });
 });
 
 app.get('/signup',function(req,res){
@@ -176,7 +193,9 @@ app.get('/time',async function(req,res){
 
   w.time.push(d);
  await work(w).save();
+
     res.send('sample',{d:a,f:flag});
+
 });
 
 app.post('/option',urlencodedParser,async function(req,res){
